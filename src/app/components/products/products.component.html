@@ -1,0 +1,84 @@
+<h1>Listado de Productos</h1>
+<hr>
+
+<!-- Agregar Producto -->
+<div class="card card-body" *ngIf="saveProduct">
+  <form (ngSubmit)="addProduct()">
+    <div class="form-group">
+      <input class="form-control" placeholder="Código" type="text" name="code" [(ngModel)]="product.code">
+    </div>
+    <div class="form-group">
+      <input class="form-control" placeholder="Descripción" type="text" name="description" [(ngModel)]="product.description">
+    </div>
+    <div class="form-group">
+      <input class="form-control" placeholder="Precio" type="text" name="price" [(ngModel)]="product.price">
+    </div>
+
+    <button class="btn btn-danger mr-1" type="button" (click)='cancel()'>
+      Cancelar
+    </button>
+
+    <button class="btn btn-success" type="submit">
+      Guardar
+    </button>
+  </form>
+</div>
+
+<!-- Editar Producto -->
+<div class="my-2" *ngFor="let p of products">
+ <div *ngIf="editing && editingProduct.id == p.id">
+  <form (ngSubmit)="updateProduct()">
+      <div class="form-group">
+        <input class="form-control" type="text" name="code" [(ngModel)]="editingProduct.code">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="description" [(ngModel)]="editingProduct.description">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="price" [(ngModel)]="editingProduct.price">
+      </div>
+      <button class="btn btn-success btn-block" type="submit">
+        Actualizar
+      </button>
+  </form>
+ </div>
+ </div>
+
+<div class="row">
+  <div class="col text-right">
+    <button *ngIf="!saveProduct && !editing" class="btn btn-primary" (click)="openSave($event)">
+        <i class="fa fa-plus"></i>
+        Agregar
+    </button>
+  </div>
+</div>
+
+<!-- Listar Productos -->
+<table class="table mt-3 animated fadeIn faster animated fadeIn faster">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Código</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products, let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{p.code}}</td>
+      <td>{{p.description}}</td>
+      <td>{{p.price}}</td>
+      <td>
+        <button class="btn btn-info mr-1" (click)="editProduct($event, p)">
+            <i class="fa fa-pen"></i>
+        </button>
+
+        <button class="btn btn-danger" (click)="deleteProduct($event, p)">
+          <i class="fa fa-trash"></i>
+      </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

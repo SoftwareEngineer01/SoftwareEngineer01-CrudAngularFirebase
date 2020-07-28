@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "notas-1d4ec": {
+      "hosting": {
+        "front": [
+          "notas-1d4ec"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "notas-1d4ec"
+  }
+}
